@@ -30,4 +30,13 @@ class general_plugin_kitty_test extends DokuWikiTest {
         $this->assertRegExp('/^\d\d\d\d-\d\d-\d\d$/', $info['date']);
         $this->assertTrue(false !== strtotime($info['date']));
     }
+
+    public function test_xhtmlrender(){
+        $plugin = new syntax_plugin_kitty();
+        $render = new Doku_Renderer_xhtml();
+
+        $plugin->render('xhtml', $render, array(200,200));
+
+        $this->assertContains('placekitten.com', $render->doc);
+    }
 }

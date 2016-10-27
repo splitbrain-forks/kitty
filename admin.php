@@ -31,15 +31,20 @@ class admin_plugin_kitty extends DokuWiki_Admin_Plugin {
      * Should carry out any processing required by the plugin.
      */
     public function handle() {
-
-        $name = $_REQUEST['name'];
-        $width = $_REQUEST['width'];
-        $height = $_REQUEST['height'];
+        global $INPUT;
+        $name = $INPUT->str('name');
+        $width = $INPUT->int('width');
+        $height = $INPUT->int('height');
 
         if($name && $width && $height) {
-            msg("Adding $name to database", 1);
+            if(!checkSecurityToken()) return;
+
+            msg("Adding " . hsc($name) . " to database", 1);
             $sqlite = syntax_plugin_kitty::getDB();
-            $sqlite->query("REPLACE INTO kittens (name, width, height) VALUES ('$name', $width, $height)");
+            $sqlite->query(
+                "REPLACE INTO kittens (name, width, height) VALUES (?, ? , ?)",
+                array($name, $width, $height)
+            );
         }
     }
 
@@ -47,9 +52,9 @@ class admin_plugin_kitty extends DokuWiki_Admin_Plugin {
      * Render HTML output, e.g. helpful text and a form
      */
     public function html() {
-        ptln('<h1>'.$this->getLang('menu').'</h1>');
+        ptln('<h1>' . $this->getLang('menu') . '</h1>');
 
-        $form = new Form(array('method'=>'post'));
+        $form = new Form(array('method' => 'post'));
         $form->addTextInput('name', 'Cat Name');
         $form->addTextInput('width', 'Width');
         $form->addTextInput('height', 'Height');

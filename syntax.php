@@ -70,7 +70,8 @@ class syntax_plugin_kitty extends DokuWiki_Syntax_Plugin {
         if($mode != 'xhtml') return false;
 
         list($width, $height) = $data;
-        $renderer->doc .= '<img src="https://placekitten.com/' . $width . '/' . $height . '" class="kitty" />';
+        $renderer->doc .= '<img src="https://placekitten.com/' . $width . '/' . $height .
+            '" class="kitty" title="' . $this->getLang('cat') . '" />';
 
         return true;
     }

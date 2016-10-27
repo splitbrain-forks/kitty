@@ -1,6 +1,6 @@
 <?php
 /**
- * English language file for kitty plugin
+ * German language file for kitty plugin
  *
  * @author Andreas Gohr <gohr@cosmocode.de>
  */
@@ -11,7 +11,7 @@
 // custom language strings for the plugin
 // $lang['fixme'] = 'FIXME';
 
-$lang['cat'] = 'Cat';
+$lang['cat'] = 'Katze';
 
 
 //Setup VIM: ex: et ts=4 :

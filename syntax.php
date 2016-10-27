@@ -69,8 +69,14 @@ class syntax_plugin_kitty extends DokuWiki_Syntax_Plugin {
     public function render($mode, Doku_Renderer $renderer, $data) {
         if($mode != 'xhtml') return false;
 
+        if($this->getConf('grayscale')) {
+            $g = 'g/';
+        } else {
+            $g = '';
+        }
+
         list($width, $height) = $data;
-        $renderer->doc .= '<img src="https://placekitten.com/' . $width . '/' . $height .
+        $renderer->doc .= '<img src="https://placekitten.com/' . $g . $width . '/' . $height .
             '" class="kitty" title="' . $this->getLang('cat') . '" />';
 
         return true;
